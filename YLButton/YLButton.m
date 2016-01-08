@@ -28,6 +28,7 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return self;
+    
 }
 
 @end
