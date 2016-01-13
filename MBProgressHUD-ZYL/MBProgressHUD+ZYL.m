@@ -1,8 +1,8 @@
 //
-//  MBProgressHUD+XMG.h
+//  MBProgressHUD+ZYL.h
 //
-//  Created by 张银龙 on 14/12/8.
-//  Copyright © 2014年 张银龙. All rights reserved.
+//  Created by 张银龙 on 15-6-6.
+//  Copyright (c) 2015年 张银龙. All rights reserved.
 //
 
 #import "MBProgressHUD+ZYL.h"
