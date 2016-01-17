@@ -1,9 +1,9 @@
 //
 //  Single.h
-//  05-掌握-单例模式（通用）
+//  单例模式
 //
-//  Created by xiaomage on 16/12/11.
-//  Copyright © 2014年 xiaomage. All rights reserved.
+//  Created by 张银龙 on 14/12/11.
+//  Copyright © 2014年 张银龙. All rights reserved.
 //
 
 #define SingleH(name) +(instancetype)share##name;
