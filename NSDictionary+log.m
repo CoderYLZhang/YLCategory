@@ -1,9 +1,9 @@
 //
 //  NSDictionary+log.m
-//  多值参数和输出中文
+//  输出中文
 //
-//  Created by 张银龙 on 16/1/17.
-//  Copyright © 2016年 张银龙. All rights reserved.
+//  Created by 张银龙 on 14/12/17.
+//  Copyright © 2014年 张银龙. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
