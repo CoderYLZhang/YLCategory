@@ -42,7 +42,7 @@
         //去字典里找 key 对应的值
         id value = dict[key];
         // 二级:如果是字典,转模型
-        if ([value isKindOfClass:[NSDictionary class]] ) {
+        if ([value isKindOfClass:[NSDictionary class]] && ![ivarType hasPrefix:@"NS"]){
             
             Class modelClass = NSClassFromString(ivarType);
             
