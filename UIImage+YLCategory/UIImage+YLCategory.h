@@ -14,7 +14,7 @@
 // 根据颜色生成一张尺寸为1*1的相同颜色图片
 + (UIImage *)imageWithColor:(UIColor *)color;
 //图片高亮无默认颜色
-+ (instancetype)imageWithOriginalName:(NSString *)imageName;
++ (instancetype)imageOriginalName:(NSString *)imageName;
 //无边框裁剪圆
 + (UIImage*)imageClipWithName:(UIImage*)image;
 //有边框裁剪圆

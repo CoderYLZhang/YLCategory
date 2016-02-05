@@ -11,8 +11,7 @@
 @implementation UIImage (YLCategory)
 
 //拉伸图片
-+(UIImage *)resizableImage:(NSString *)imgName
-{
++(UIImage *)resizableImage:(NSString *)imgName{
 
         UIImage *img = [UIImage imageNamed:imgName];
         CGFloat w = img.size.width * 0.5;
@@ -21,8 +20,7 @@
 
 }
 // 根据颜色生成一张尺寸为1*1的相同颜色图片
-+ (UIImage *)imageWithColor:(UIColor *)color
-{
++ (UIImage *)imageWithColor:(UIColor *)color{
     // 描述矩形
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     // 开启位图上下文
@@ -41,14 +39,12 @@
     return theImage;
 }
 //图片高亮无默认颜色
-+(instancetype)imageWithOriginalName:(NSString *)imageName
-{
++(instancetype)imageOriginalName:(NSString *)imageName{
     UIImage *image = [UIImage imageNamed:imageName];
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 //无边框裁剪原
-- (UIImage*)imageClipWithName:(UIImage*)image
-{
++ (UIImage*)imageClipWithName:(UIImage*)image{
     //1.加载图片
     //2.开启位图上下文
     UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
@@ -64,8 +60,7 @@
     return image;
 }
 //有边框裁剪圆
-- (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color Image:(UIImage*)image
-{
++ (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color Image:(UIImage*)image{
     //1.加载图片
     //2.设置边框
     //3.开启位图上下文
@@ -87,8 +82,7 @@
     return image;
 }
 //切圆角
-+ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect name:(UIImage*)image
-{
++ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect name:(UIImage*)image{
     //1.加载图片
     //2.开启位图上下文
     UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
