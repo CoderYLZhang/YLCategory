@@ -14,9 +14,9 @@
 	</dict>
 	<dict>
 		<key>classAndMethod</key>
-		<string>mage imageWithOriginalName:</string>
+		<string>mage imageOriginalName:</string>
 		<key>methodDeclaration</key>
-		<string> imageWithOriginalName:</string>
+		<string> imageOriginalName:</string>
 		<key>methodName</key>
 		<string>imageWithOriginalName</string>
 		<key>comment</key>
