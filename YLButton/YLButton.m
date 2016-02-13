@@ -10,25 +10,35 @@
 
 @implementation YLButton
 
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGFloat imageW = self.frame.size.width;
-    CGFloat imageH = imageW;
-    self.imageView.frame = CGRectMake(0, 0, imageW, imageH);
-    CGFloat titleW = imageW;
-    CGFloat titleH = self.frame.size.height - imageH;
-    CGFloat titleY = imageH;
+    
+    CGRect imageFrame = self.imageView.frame;
+    imageFrame.origin.y = 0;
+    self.imageView.frame = imageFrame;
+    
+    CGPoint imageCenter = self.imageView.center;
+    imageCenter.x = self.frame.size.width * 0.5;
+    self.imageView.center = imageCenter;
+    
+    CGFloat titleY = self.imageView.bounds.size.height;
+    CGFloat titleW = self.bounds.size.width;
+    CGFloat titleH = self.bounds.size.height - titleY;
     self.titleLabel.frame = CGRectMake(0, titleY, titleW, titleH);
 }
 
+- (void)awakeFromNib{
+    
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+}
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return self;
-    
 }
 
 @end
