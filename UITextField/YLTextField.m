@@ -39,7 +39,10 @@
     
     attributes[NSForegroundColorAttributeName] = color;
     
-    self.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.placeholder attributes:attributes];
+    if (self.placeholder != nil) {
+        
+        self.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.placeholder attributes:attributes];
+    }
 }
 
 //--------------------- 利用内部的某些机制实现
