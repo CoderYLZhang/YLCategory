@@ -10,7 +10,7 @@
 
 @implementation UIImage (YLCategory)
 
-/** 拉伸图片 */
+//拉伸图片
 +(UIImage *)resizableImage:(NSString *)imgName{
 
         UIImage *img = [UIImage imageNamed:imgName];
@@ -19,7 +19,7 @@
         return [img resizableImageWithCapInsets:UIEdgeInsetsMake(h, w, h, w)];
 
 }
-/** 根据颜色生成一张尺寸为1*1的相同颜色图片 */
+// 根据颜色生成一张尺寸为1*1的相同颜色图片
 + (UIImage *)imageWithColor:(UIColor *)color{
     // 描述矩形
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
@@ -38,17 +38,28 @@
     
     return theImage;
 }
-/** 图片高亮无默认颜色 */
+//图片高亮无默认颜色
 +(instancetype)imageOriginalName:(NSString *)imageName{
     UIImage *image = [UIImage imageNamed:imageName];
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
-/** 无边框裁剪原 */
+//无边框裁剪原
 + (UIImage*)imageClipWithName:(UIImage*)image{
-    
-    return [self imageClipWithBorder:0 color:nil Image:image];
+    //1.加载图片
+    //2.开启位图上下文
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
+    //3.设置裁剪路径
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    [path addClip];
+    //4.填充图片
+    [image drawAtPoint:CGPointMake(0, 0)];
+    //5.从上下文中读取图片
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    //6.关闭上下文
+    UIGraphicsEndImageContext();
+    return image;
 }
-/** 有边框裁剪圆 */
+//有边框裁剪圆
 + (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color Image:(UIImage*)image{
     //1.加载图片
     //2.设置边框
@@ -70,7 +81,7 @@
     UIGraphicsEndImageContext();
     return image;
 }
-/** 切圆角 */
+//切圆角
 + (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect name:(UIImage*)image{
     //1.加载图片
     //2.开启位图上下文
