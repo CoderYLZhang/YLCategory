@@ -21,5 +21,7 @@
 + (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image;
 /** 切圆角 */
 + (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image;
-
+// 返回一张抗锯齿图片
+// 本质：在图片生成一个透明为1的像素边框
+- (UIImage *)imageAntialias;
 @end
