@@ -16,10 +16,10 @@
 /** 图片高亮无默认颜色 */
 + (instancetype)imageOriginalName:(NSString *)imageName;
 /** 无边框裁剪原 */
-+ (UIImage*)imageClipWithName:(UIImage*)image;
++ (UIImage*)imageClipWithImage:(UIImage*)image;
 /** 有边框裁剪圆 */
-+ (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color Image:(UIImage*)image;
++ (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image;
 /** 切圆角 */
-+ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect name:(UIImage*)image;
++ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image;
 
 @end

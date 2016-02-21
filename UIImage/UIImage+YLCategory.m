@@ -44,12 +44,12 @@
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 /** 无边框裁剪原 */
-+ (UIImage*)imageClipWithName:(UIImage*)image{
++ (UIImage*)imageClipWithImage:(UIImage*)image{
     
     return [self imageClipWithBorder:0 color:nil Image:image];
 }
 /** 有边框裁剪圆 */
-+ (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color Image:(UIImage*)image{
++ (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image{
     //1.加载图片
     //2.设置边框
     //3.开启位图上下文
@@ -71,7 +71,7 @@
     return image;
 }
 /** 切圆角 */
-+ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect name:(UIImage*)image{
++ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image{
     //1.加载图片
     //2.开启位图上下文
     UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
