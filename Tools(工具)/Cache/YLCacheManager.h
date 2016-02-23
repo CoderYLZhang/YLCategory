@@ -11,7 +11,7 @@
 @interface YLCacheManager : NSObject
 + (void)getCacheSizeCompletion:(void(^)(NSInteger totalSize))completionBlock;
 + (void)getCacheSizeWithDirectoryPath:(NSString *)directoryPath completion:(void(^)(NSInteger totalSize))completionBlock;
-+ (void)removeCacheData;
-+ (void)removeDirectoryPath:(NSString *)directoryPath;
++ (void)removeCacheDataCompletion:(void(^)())completionBlock;
++ (void)removeDirectoryPath:(NSString *)directoryPath completion:(void(^)())completionBlock;
 
 @end

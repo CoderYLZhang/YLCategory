@@ -14,7 +14,6 @@
     NSString *cache = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
     [self getCacheSizeWithDirectoryPath:cache completion:completionBlock];
 }
-
 + (void)getCacheSizeWithDirectoryPath:(NSString *)directoryPath completion:(void(^)(NSInteger totalSize))completionBlock{
     
     // 开启异步任务
@@ -58,30 +57,42 @@
         });
     });
 }
-+ (void)removeCacheData{
++ (void)removeCacheDataCompletion:(void(^)())completionBlock{
     NSString *cache = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-    [self removeDirectoryPath:cache];
+    [self removeDirectoryPath:cache completion:completionBlock];
 }
-+ (void)removeDirectoryPath:(NSString *)directoryPath{
-    
-    NSFileManager *mgr = [NSFileManager defaultManager];
-    // 判断下当前文件是否存在,是否是文件夹
-    BOOL isDirectory;
-    BOOL isExist = [mgr fileExistsAtPath:directoryPath isDirectory:&isDirectory];
-    
-    if (!isExist || !isDirectory) {
-        NSException *excp =  [NSException exceptionWithName:@"fileError" reason:@"传入文件不存在,或者不是文件夹,给我传文件夹过来" userInfo:nil];
-        [excp raise];
-    }
-    
-    // 获取文件夹中所有文件
-    NSArray *contentPaths = [mgr contentsOfDirectoryAtPath:directoryPath error:nil];
-    
-    // 遍历所有子路径
-    for (NSString *contentPath in contentPaths) {
-        NSString *filePath = [directoryPath stringByAppendingPathComponent:contentPath];
-        [mgr removeItemAtPath:filePath error:nil];
-    }
++ (void)removeDirectoryPath:(NSString *)directoryPath completion:(void(^)())completionBlock{
+ 
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSFileManager *mgr = [NSFileManager defaultManager];
+        // 判断下当前文件是否存在,是否是文件夹
+        BOOL isDirectory;
+        BOOL isExist = [mgr fileExistsAtPath:directoryPath isDirectory:&isDirectory];
+        
+        if (!isExist || !isDirectory) {
+            NSException *excp =  [NSException exceptionWithName:@"fileError" reason:@"传入文件不存在,或者不是文件夹,给我传文件夹过来" userInfo:nil];
+            [excp raise];
+        }
+        
+        // 获取文件夹中所有文件
+        NSArray *contentPaths = [mgr contentsOfDirectoryAtPath:directoryPath error:nil];
+        
+        // 遍历所有子路径
+        for (NSString *contentPath in contentPaths) {
+            NSString *filePath = [directoryPath stringByAppendingPathComponent:contentPath];
+            [mgr removeItemAtPath:filePath error:nil];
+        }
+
+        // 一定要记得在主线程调用block
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (completionBlock) {
+                completionBlock();
+            }
+        });
+    });
 }
+
+
 
 @end
