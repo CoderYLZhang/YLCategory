@@ -23,5 +23,6 @@
 + (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image;
 // 返回一张抗锯齿图片
 // 本质：在图片生成一个透明为1的像素边框
+/** 在周边加一个边框为1的透明像素 */
 - (UIImage *)imageAntialias;
 @end

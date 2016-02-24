@@ -39,7 +39,7 @@
     return theImage;
 }
 /** 图片高亮无默认颜色 */
-+(instancetype)imageOriginalName:(NSString *)imageName{
++ (instancetype)imageOriginalName:(NSString *)imageName{
     UIImage *image = [UIImage imageNamed:imageName];
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
@@ -71,7 +71,7 @@
     return image;
 }
 /** 切圆角 */
-+ (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image{
++ (UIImage *)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image{
     //1.加载图片
     //2.开启位图上下文
     UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
@@ -86,7 +86,7 @@
     UIGraphicsEndImageContext();
     return image;
 }
-// 在周边加一个边框为1的透明像素
+/** 在周边加一个边框为1的透明像素 */
 - (UIImage *)imageAntialias{
     
     CGFloat border = 1.0f;
