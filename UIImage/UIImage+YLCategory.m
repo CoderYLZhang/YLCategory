@@ -50,6 +50,8 @@
 }
 /** 有边框裁剪圆 */
 + (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image{
+    
+    if (!image) return nil;
     //1.加载图片
     //2.设置边框
     //3.开启位图上下文
