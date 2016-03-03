@@ -43,7 +43,12 @@
     UIImage *image = [UIImage imageNamed:imageName];
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
-/** 无边框裁剪原 */
+/** 无边框裁剪圆 */
++ (UIImage*)imageClipWithName:(NSString*)name{
+    UIImage *image =[UIImage imageNamed:name];
+    return [self imageClipWithImage:image];
+}
+/** 无边框裁剪圆 */
 + (UIImage*)imageClipWithImage:(UIImage*)image{
     
     return [self imageClipWithBorder:0 color:nil image:image];

@@ -14,6 +14,16 @@
 	</dict>
 	<dict>
 		<key>classAndMethod</key>
+		<string>mage imageClipWithName:</string>
+		<key>methodDeclaration</key>
+		<string>imageClipWithName:</string>
+		<key>methodName</key>
+		<string>imageClipWithName</string>
+		<key>comment</key>
+		<string>Standard NSImage/UIImage method in Objective-C</string>
+	</dict>
+	<dict>
+		<key>classAndMethod</key>
 		<string>mage imageOriginalName:</string>
 		<key>methodDeclaration</key>
 		<string> imageOriginalName:</string>

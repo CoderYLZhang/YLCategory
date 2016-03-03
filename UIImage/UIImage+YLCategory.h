@@ -15,7 +15,9 @@
 + (UIImage *)imageWithColor:(UIColor *)color;
 /** 图片高亮无默认颜色 */
 + (instancetype)imageOriginalName:(NSString *)imageName;
-/** 无边框裁剪原 */
+/** 无边框裁剪圆 */
++ (UIImage*)imageClipWithName:(NSString*)name;
+/** 无边框裁剪圆 */
 + (UIImage*)imageClipWithImage:(UIImage*)image;
 /** 有边框裁剪圆 */
 + (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image;
