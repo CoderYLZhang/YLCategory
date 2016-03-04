@@ -113,4 +113,19 @@
     
     return antiImage;
 }
++ (UIImage *)addImage:(UIImage*)image toBackGround:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin { 
+    
+    // 开启图形上下文
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    // 把背景图片画到指定位置
+    [imageBG drawInRect:(CGRect){{0, 0}, size}];
+    // 把图片加到背景上
+    [image drawInRect:CGRectMake(margin * 0.5, margin * 0.5, size.width - margin, size.height - margin)];
+    // 从上下文中取出图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 关闭上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 @end
