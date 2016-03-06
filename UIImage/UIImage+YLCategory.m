@@ -7,6 +7,9 @@
 //
 
 #import "UIImage+YLCategory.h"
+#import <Photos/Photos.h>
+
+
 
 @implementation UIImage (YLCategory)
 
@@ -60,7 +63,7 @@
     //1.加载图片
     //2.设置边框
     //3.开启位图上下文
-    //    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
+    //UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(image.size.width + 2 * border, image.size.width + 2 * border), NO, 0);
     //4.设置边框路径
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, image.size.width + 2 * border, image.size.height + 2 * border)];
@@ -113,19 +116,57 @@
     
     return antiImage;
 }
-+ (UIImage *)addImage:(UIImage*)image toBackGround:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin { 
+#pragma mark - 保存图片到自定义相册
+- (void)yl_saveToCustomAlbumWithCompletionHandler:(void (^)(BOOL success, NSError *error))handler{
     
-    // 开启图形上下文
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    // 把背景图片画到指定位置
-    [imageBG drawInRect:(CGRect){{0, 0}, size}];
-    // 把图片加到背景上
-    [image drawInRect:CGRectMake(margin * 0.5, margin * 0.5, size.width - margin, size.height - margin)];
-    // 从上下文中取出图片
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    // 关闭上下文
-    UIGraphicsEndImageContext();
+    NSInteger oldStatus = [PHPhotoLibrary authorizationStatus];
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        if (status == PHAuthorizationStatusDenied) {
+            // 如果不是第一次访问
+            if (oldStatus != PHAuthorizationStatusNotDetermined) {
+                handler(NO, [NSError errorWithDomain:@"用户拒绝了" code:1 userInfo:nil]);
+                //提示用户打开
+            }
+        }else if(status == PHAuthorizationStatusAuthorized){
+            // 获得【自定义相册】
+            PHAssetCollection *createdCollection = self.createdCollection;
+            
+            // 异步执行操作
+            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                
+                PHObjectPlaceholder *placeholder = [PHAssetChangeRequest creationRequestForAssetFromImage:self].placeholderForCreatedAsset;
+                // 将对应的相册传入，创建一个【相册修改请求】对象
+                PHAssetCollectionChangeRequest *collectionChangeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:createdCollection];
+                // 将保存到【相机胶卷】的图片添加到【自定义相册】
+                [collectionChangeRequest insertAssets:@[placeholder] atIndexes:[NSIndexSet indexSetWithIndex:0]];
+                
+            } completionHandler:handler];
+        }
+    }];
+}
+- (PHAssetCollection *)createdCollection{
     
-    return newImage;
+    // 抓取所有【自定义相册】
+    PHFetchResult<PHAssetCollection *> * collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    // 从Info.plist中获得App名称(也就是当前App的相册名称)
+    NSString *title = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+    
+    for (PHAssetCollection * collection in collections) {
+        
+        if ([collection.localizedTitle isEqualToString:title]) {
+            // 【自定义相册】已经创建过
+            return collection;
+        }
+    }
+    __block PHObjectPlaceholder * placeholder = nil;
+    // 同步执行操作
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        
+        // 创建【自定义相册】
+        placeholder = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection;
+        
+    } error:nil];
+    // 根据id获得刚刚创建完的相册
+    return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[placeholder.localIdentifier] options:nil][0];
 }
 @end

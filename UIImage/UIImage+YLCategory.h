@@ -27,6 +27,6 @@
 // 本质：在图片生成一个透明为1的像素边框
 /** 在周边加一个边框为1的透明像素 */
 - (UIImage *)imageAntialias;
-/** 把一张图加到另一张图上 */
-+ (UIImage *)addImage:(UIImage*)image toBackGround:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin;
+/** 保存图片到自定义相册 */
+- (void)yl_saveToCustomAlbumWithCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
 @end
