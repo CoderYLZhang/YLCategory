@@ -96,8 +96,24 @@
     UIGraphicsEndImageContext();
     return image;
 }
+/** 把一张图加到另一张图上 */
++ (UIImage *)addImage:(UIImage*)image toBackground:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin {
+    
+    // 开启图形上下文
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    // 把背景图片画到指定位置
+    [imageBG drawInRect:(CGRect){{0, 0}, size}];
+    // 把图片加到背景上
+    [image drawInRect:CGRectMake(margin, margin, size.width - margin * 2, size.height - margin * 2)];
+    // 从上下文中取出图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 关闭上下文
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 /** 在周边加一个边框为1的透明像素 */
-- (UIImage *)imageAntialias{
+- (UIImage *)imageAntialias {
     
     CGFloat border = 1.0f;
     CGRect rect = CGRectMake(border, border, self.size.width-2*border, self.size.height-2*border);
@@ -169,4 +185,5 @@
     // 根据id获得刚刚创建完的相册
     return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[placeholder.localIdentifier] options:nil][0];
 }
+
 @end

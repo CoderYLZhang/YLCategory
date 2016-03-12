@@ -23,6 +23,8 @@
 + (UIImage*)imageClipWithBorder:(CGFloat)border color:(UIColor*)color image:(UIImage*)image;
 /** 切圆角 */
 + (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image;
+/** 把一张图加到另一张图上 */
++ (UIImage *)addImage:(UIImage*)image toBackground:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin
 // 返回一张抗锯齿图片
 // 本质：在图片生成一个透明为1的像素边框
 /** 在周边加一个边框为1的透明像素 */
