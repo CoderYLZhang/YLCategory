@@ -36,7 +36,6 @@
             break;
     }
 }
-
 #pragma mark - 动态添加属性
 - (void)setUserBrightness:(CGFloat)userBrightness {
     objc_setAssociatedObject(self, @selector(userBrightness), @(userBrightness), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
