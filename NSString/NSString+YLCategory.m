@@ -28,5 +28,18 @@
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return [self sizeWithAttributes:attrs];
 }
-
+/** 邮箱加密 1234567@163.com */
++ (NSString *)stringEncryptWithEmail:(NSString *)emailStr {
+    
+    NSUInteger length = [emailStr rangeOfString:@"@" options:NSBackwardsSearch].location - 1 - 1;
+    NSMutableString *newEmailStr = [NSMutableString stringWithString:emailStr];
+    NSMutableString *star = [NSMutableString string];
+    
+    for (int i = 0; i < length; i++) {
+        [star appendString:@"*"];
+    }
+    [newEmailStr replaceCharactersInRange:NSMakeRange(1, length) withString:star];
+    
+    return newEmailStr;
+}
 @end

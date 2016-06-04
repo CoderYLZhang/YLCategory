@@ -17,4 +17,7 @@
 
 - (CGSize)sizeWithFont:(UIFont *)font;
 
+/** 邮箱加密 */
++ (NSString *)stringEncryptWithEmail:(NSString *)emailStr;
+
 @end
