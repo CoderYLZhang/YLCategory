@@ -31,4 +31,7 @@
 - (UIImage *)imageAntialias;
 /** 保存图片到自定义相册 */
 - (void)yl_saveToCustomAlbumWithCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
+/** 校正拍摄图片是否被旋转 */
++ (UIImage *)fixOrientation:(UIImage *)aImage;
+
 @end
