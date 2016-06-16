@@ -24,11 +24,15 @@
 /** 切圆角 */
 + (UIImage*)imageClipWithRounded:(CGFloat)RoundedRect image:(UIImage*)image;
 /** 把一张图加到另一张图上 */
-+ (UIImage *)addImage:(UIImage*)image toBackground:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin
++ (UIImage *)addImage:(UIImage*)image toBackground:(UIImage*)imageBG inSize:(CGSize)size withMargin:(CGFloat)margin;
 // 返回一张抗锯齿图片
 // 本质：在图片生成一个透明为1的像素边框
 /** 在周边加一个边框为1的透明像素 */
 - (UIImage *)imageAntialias;
+/** 重绘 */
+- (UIImage *)thumbnaiWithSizeoutScale:(CGSize)size;
+/** 图片缩放 */
+- (UIImage *)scaleImageToSize:(CGSize)size;
 /** 保存图片到自定义相册 */
 - (void)yl_saveToCustomAlbumWithCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
 /** 校正拍摄图片是否被旋转 */

@@ -132,6 +132,50 @@
     
     return antiImage;
 }
+/** 重绘 */
+- (UIImage *)thumbnaiWithSizeoutScale:(CGSize)size {
+    
+    UIImage *newimage;
+    if (nil == self) {
+        newimage = nil;
+    }
+    else{
+        CGSize oldsize = self.size;
+        CGRect rect;
+        if (size.width/size.height < oldsize.width/oldsize.height) {
+            rect.size.width = size.height*oldsize.width/oldsize.height;
+            rect.size.height = size.height;
+            rect.origin.x = (size.width - rect.size.width)/2;
+            rect.origin.y = 0;
+        }
+        else{
+            rect.size.width = size.width;
+            rect.size.height = size.width*oldsize.height/oldsize.width;
+            rect.origin.x = 0;
+            rect.origin.y = (size.height - rect.size.height)/2;
+        }
+        UIGraphicsBeginImageContext(size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+        UIRectFill(CGRectMake(0, 0, size.width, size.height)); //clear background
+        [self drawInRect:rect];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        newimage = [newimage scaleImageToSize:CGSizeMake(size.width, size.height)];
+    }
+    return newimage;
+}
+/** 图片大小 */
+- (UIImage *)scaleImageToSize:(CGSize)size {
+    
+    UIGraphicsBeginImageContext(size);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 #pragma mark - 保存图片到自定义相册
 - (void)yl_saveToCustomAlbumWithCompletionHandler:(void (^)(BOOL success, NSError *error))handler{
     
